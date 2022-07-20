@@ -6,7 +6,7 @@ class Samurai1Player extends SpriteComponent with HasGameRef {
 
   @override
   Future<void>? onLoad() async {
-    sprite = await gameRef.loadSprite(ConstantImages.samurai1);
+    sprite = await gameRef.loadSprite(ConstantImages.standing);
     position = gameRef.size / 2;
     return super.onLoad();
   }
