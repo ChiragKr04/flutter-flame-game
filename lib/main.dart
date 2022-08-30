@@ -1,33 +1,44 @@
-import 'package:flame/game.dart';
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterflamegame/PlayerAnim/samurai1_player.dart';
-import 'package:flutterflamegame/Worlds/brick_world.dart';
+import 'package:flutter/services.dart';
+import 'package:flutterflamegame/directions.dart';
+import 'main_game_page.dart';
 
-void main() {
-  final game = SamuraiGame();
-  runApp(
-    GameWidget(
-      game: game,
-    ),
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await DesktopWindow.setMaxWindowSize(
+    const Size(400, 800),
   );
+  await DesktopWindow.setMinWindowSize(
+    const Size(400, 800),
+  );
+  runApp(const MyGame());
 }
 
-class SamuraiGame extends FlameGame {
-  Samurai1Player samuraiPlayer = Samurai1Player();
-  BrickWorld brickWorld = BrickWorld();
+class MyGame extends StatelessWidget {
+  const MyGame({Key? key}) : super(key: key);
+
   @override
-  Future<void> onLoad() async {
-    super.onLoad();
-    await add(brickWorld);
-    await add(samuraiPlayer);
-    samuraiPlayer.position = brickWorld.size / 1.5;
-    camera.followComponent(
-      samuraiPlayer,
-      worldBounds: Rect.fromLTRB(
-        0,
-        0,
-        brickWorld.size.x,
-        brickWorld.size.y,
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "My Game",
+      home: RawKeyboardListener(
+        focusNode: FocusNode(),
+        onKey: (value) {
+          if (value.isKeyPressed(LogicalKeyboardKey.keyW)) {
+            game.onJoypadDirectionChanged(PlayerDirection.up);
+          } else if (value.isKeyPressed(LogicalKeyboardKey.keyS)) {
+            game.onJoypadDirectionChanged(PlayerDirection.down);
+          } else if (value.isKeyPressed(LogicalKeyboardKey.keyA)) {
+            game.onJoypadDirectionChanged(PlayerDirection.left);
+          } else if (value.isKeyPressed(LogicalKeyboardKey.keyD)) {
+            game.onJoypadDirectionChanged(PlayerDirection.right);
+          } else {
+            game.onJoypadDirectionChanged(PlayerDirection.none);
+          }
+        },
+        child: const MainGamePage(),
       ),
     );
   }
