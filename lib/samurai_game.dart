@@ -11,5 +11,6 @@ class SamuraiGame extends FlameGame {
   @override
   Future<void> onLoad() async {
     add(player);
+    player.position = Vector2((800 / 2) - 64, (600 / 2) - 64);
   }
 }

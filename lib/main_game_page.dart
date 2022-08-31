@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflamegame/directions.dart';
@@ -31,9 +33,11 @@ class _MainGamePageState extends State<MainGamePage> {
             ),
             Align(
               alignment: Alignment.bottomRight,
-              child: Joypad(
-                onDirectionChanged: onJoypadChangeDirection,
-              ),
+              child: Platform.isWindows
+                  ? const Offstage()
+                  : Joypad(
+                      onDirectionChanged: onJoypadChangeDirection,
+                    ),
             )
           ],
         );

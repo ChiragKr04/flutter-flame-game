@@ -7,10 +7,10 @@ import 'main_game_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DesktopWindow.setMaxWindowSize(
-    const Size(400, 800),
+    const Size(800, 600),
   );
   await DesktopWindow.setMinWindowSize(
-    const Size(400, 800),
+    const Size(800, 600),
   );
   runApp(const MyGame());
 }
