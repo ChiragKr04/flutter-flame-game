@@ -74,6 +74,7 @@ flutter:
     - assets/images/samurai_1.png
     - assets/images/standing.png
     - assets/images/player_spritesheet.png
+    - assets/images/world_grass.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

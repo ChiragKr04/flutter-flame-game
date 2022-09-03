@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,12 +8,14 @@ import 'main_game_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await DesktopWindow.setMaxWindowSize(
-    const Size(800, 600),
-  );
-  await DesktopWindow.setMinWindowSize(
-    const Size(800, 600),
-  );
+  if (!kIsWeb) {
+    await DesktopWindow.setMaxWindowSize(
+      const Size(800, 600),
+    );
+    await DesktopWindow.setMinWindowSize(
+      const Size(800, 600),
+    );
+  }
   runApp(const MyGame());
 }
 

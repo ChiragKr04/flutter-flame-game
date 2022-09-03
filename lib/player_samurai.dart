@@ -50,7 +50,7 @@ class SamuraiPlayer extends SpriteAnimationComponent with HasGameRef {
 
     //  standing animation
     _standingAnimation =
-        spriteSheet.createAnimation(row: 2, stepTime: _animationSpeed, to: 8);
+        spriteSheet.createAnimation(row: 2, stepTime: _animationSpeed, to: 1);
   }
 
   @override
@@ -77,6 +77,10 @@ class SamuraiPlayer extends SpriteAnimationComponent with HasGameRef {
         animation = _runRightAnimation;
         moveRight(delta);
         break;
+      case PlayerDirection.none:
+        animation = _standingAnimation;
+        idle(delta);
+        break;
       default:
         break;
     }
@@ -96,5 +100,9 @@ class SamuraiPlayer extends SpriteAnimationComponent with HasGameRef {
 
   void moveLeft(double delta) {
     position.add(Vector2(-(delta * playerSpeed), 0));
+  }
+
+  void idle(double delta) {
+    position.add(Vector2(-(delta * 0), 0));
   }
 }
